@@ -19,6 +19,17 @@ async function run() {
         const database = client.db('travellj');
         const productCollection = database.collection('packages');
 
+
+        //post API
+        app.post('/package', async (req, res) => {
+            const newPackage = req.body;
+            const result = await productCollection.insertOne(newPackage);
+
+
+            console.log('hitting the post', req.body);
+            res.send(result);
+        })
+
         //Get Products API
         app.get('/products', async (req, res) => {
             const cursor = productCollection.find({});
